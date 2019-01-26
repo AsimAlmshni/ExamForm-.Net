@@ -1,0 +1,119 @@
+﻿@model ExamForm.SLoginInfo
+
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_LogIn.cshtml";
+}
+<div class="well well-lg">
+    <p>
+        <h2>Student Info</h2>
+    </p>
+</div>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.UserName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.UserName, null)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LastLoginDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastLoginDate, null)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LoginFailedCount)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LoginFailedCount)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LoginIPAddress)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LoginIPAddress)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StudentTimeZone)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StudentTimeZone)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LastAccessedDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastAccessedDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AccountLocked)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AccountLocked)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.UserResult)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.UserResult)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Password)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Password)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Deleted)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Deleted)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.User.UserRole)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User.UserRole)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        <span>
+            <i class="glyphicon glyphicon-backward"> </i>
+            @Html.ActionLink("Back", "AdminView", "Home")
+        </span>
+    </p>
+</body>
+</html>

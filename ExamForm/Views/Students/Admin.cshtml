@@ -1,0 +1,120 @@
+﻿@model ExamForm.SLoginInfo
+
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/_LogIn.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin View</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="~/Content/UsersCSS.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .affix {
+            top: 0;
+            width: 100%;
+            z-index: 9999 !important;
+        }
+
+        .affix + .container-fluid {
+            padding-top: 70px;
+        }
+        body {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid" style="background-color:gray;color:#fff;height:200px;">
+        <h1>Welcome: @ViewBag.User_Name</h1>
+        <h3>Here can admin control previleges for users etc...</h3>
+    </div>
+    <br>
+
+    <nav class="navbar navbar-inverse" data-spy="affix">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Admin Page</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="#Home">Home</a>
+                </li>
+                <li><a href="#Account">Account</a></li>
+                <li><a href="#Register">Register</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    @Html.ActionLink("Logout", "Logout", "Home")
+                </li>
+        </ul>
+
+            <div class="navbar-form navbar-left" role="search">
+                @using (Html.BeginForm("Search", "Students", FormMethod.Post))
+                {
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.UserName, "Search", new { htmlAttributes = new { placeholder = "Search", @class = "form-control" } });
+                        <button class="btn btn-default" type="submit" value="Search">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </nav>
+    <div id="Home" class="container-fluid">
+        <div class="col-sm-9">
+            <div>
+                <table class="UsersTable">
+                    <tr>
+                        <th>StudentID</th>
+                        <th>UserName</th>
+                        <th>Password</th>
+                        <th>UserResult</th>
+                        <th>AccountLocked</th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in ViewBag.StudentsData)
+                    {
+                        <tr>
+                            <td>@item.StudentID</td>
+                            <td>@item.UserName</td>
+                            <td>@item.Password</td>
+                            <td>@item.UserResult</td>
+                            <td>@item.AccountLocked</td>
+                            <td>
+                                @Html.ActionLink("Delete", "DeleteStudent", "Students", new { id = item.StudentID }, new { @class = "glyphicon glyphicon-trash" })
+                                | @Html.ActionLink("Edit", "Edit", "Students", new { id = item.StudentID }, new { @class = "glyphicon glyphicon-edit" })
+                                | @Html.ActionLink("Info", "Info", "Students", new { id = item.StudentID }, new { @class = "glyphicon glyphicon-info-sign" })
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <br />
+        </div>
+        @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
+
+        @*@Html.PagedListPager(Model, page => Url.Action("Search",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
+
+        @*@Html.ActionLink(
+            linkText: "Delete",
+            actionName: "DeleteStudent",
+            controllerName: "Students"
+            )*@
+    </div>
+
+    <div id="Register" class="container-fluid">
+        <p font="5">see the whole Questions in the data Base</p>
+        @Html.ActionLink("Regesiter a new User", "Registration", "Home")
+    </div>
+</body>
+</html>

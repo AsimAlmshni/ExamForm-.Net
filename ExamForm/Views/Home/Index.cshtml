@@ -1,0 +1,242 @@
+﻿@model ExamForm.Models.ExamTemp
+@using System.Web.Optimization
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    //FormCollection fc = new FormCollection();
+    AjaxOptions ajaxOpts = new AjaxOptions
+    {
+        UpdateTargetId = "tableBody",
+        Url = Url.Action("_Ajax")
+    };
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<!DOCTYPE html>
+<html>
+<head>
+    @Scripts.Render("~/Scripts/jquery")
+    <link href="~/Content/UsersCSS.css" rel="stylesheet" />
+    <link href="~/Content/Question-theme.css" rel="stylesheet" />
+    <title></title>
+
+    @*<script type="text/javascript">
+        $(document).ready(function () {
+            $("#<%=btnSubmit%>").click(function () {
+                var strAns = $("#<%=container2%> input:checked").val();
+                window.confirm(strAns);
+            });
+        });
+    </script>*@
+    @*<script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnSubmit").click(function () {
+                var strAns = $("#container2 input:checked").val();
+                window.confirm(strAns);
+            });
+        });
+    </script>*@
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+        $("#btnSubmit1").click(function (evt) {
+            var strMessage;
+            var result = "";
+            var correctResult = 'Correct';
+            var xi = document.getElementById("id3");
+            $("#cons0").each(function () {
+                alert("EnteredCons0")
+                if ($("#Answer1:radio").val() == 'False' && $("#Answer1").attr("checked")) {
+                    //var input = $("form input:radio")
+                    //    .wrap("<span></span>")
+                    //    .parent()
+                    //    .css({
+                    //        background: "yellow",
+                    //        border: "3px red solid"
+                    //    });
+                    alert("Entered")
+                }
+            });
+            $(":radio").each(function () {
+                if ($(this).val() == 'True')
+                {
+                    console.log($(this).prop("checked"));
+                    //var tes = $("Answer1" :radio).css({ background: "red", border: "3px red solid" });
+                    //$(".test").children().css("background-color", "red");
+                    //var xy = document.activeElement;
+                    //alert(xi.localName);
+                }
+            if ($(this).prop("checked")) {
+                if ($(this).val() == 'True') {
+                    alert($(this).val());
+                    $("#Result3").css("color", "green")
+                    $("#Result3").text(correctResult);
+                } else {
+                    alert($(this).val());
+                    result = 'Fales';
+                    $("#Result1").css("color", "red")
+                    $("#Result1").text(result);
+                }
+                $("#Result3").css("color", "green")
+                $("#Result3").text(correctResult);
+                strMessage = strMessage + "Button checked"; 
+            } 
+        });
+            if (strMessage != "") {
+                strMessage = strMessage + "<br/>Please complete the following fields:<br/><br/>";
+            $("#ErrorMessage").html(strMessage);
+            $("#ErrorMessage").css("color", "#FF0000");
+            evt.preventDefault();
+            }
+            });
+        });
+</script>
+
+</head>
+<body>
+    @using (Ajax.BeginForm(ajaxOpts))
+    {
+        <table class="table">
+
+            <tr>
+                <th>
+                    <p>
+                        <h3>Questions</h3>
+                    </p>
+                </th>
+            </tr>
+
+            @{
+                int i = 0, x = 0;
+                int counter = 0, counter2 = 0;
+
+                if (Model.Ans.Count() > 0)
+                {
+                    foreach (var item in Model.Ans)
+                    {
+                        if (item.Question == null)
+                        {
+                            continue;
+                        }
+                        string res1 = "cons" + x;
+                        i++;
+                        <tr>
+                            <td>
+                                <div class="well well-sm">
+                                    <p>
+                                        <label>Q:</label>
+                                        @Html.DisplayFor(modelItem => item.Question)
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id=@res1 class="test">
+                                    @foreach (var secItem in Model.Ans.Skip(counter2))
+                                    {
+                                        if (counter < 4)
+                                        {
+                                            string res = "Result" + counter;
+                                            string idd = "id" + counter;
+                                            string b = "di" + counter;
+                                            <label class="container2" id=@b name="a">
+                                                @Html.RadioButton("Answer" + i + "", secItem.Correct.ToString(), new { @id = "Answer" + i })
+                                                @Html.DisplayFor(modelItem => secItem.Answer)
+                                                <span class="checkmark"></span>
+                                                <label id=@res></label>
+                                            </label>
+                                            counter++;
+                                        }
+                                        if (counter == 4)
+                                        {
+                                            counter2 += counter;
+                                            counter = 0;
+                                            x++;
+                                            break;
+                                        }
+                                        <br />
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </table>
+        <div>
+            <input type="submit" value="Submit" id="btnSubmit" class="button button1" style="float:right">
+            <input type="submit" value="Submit" id="btnSubmit1" class="button button1" style="float:right">
+
+        </div>
+
+    }
+    <a href="@Url.Action("ExportToExcel", "Home")">Export to Excel</a>
+
+    <div id="tableBody">
+        @Html.Action("_Ajax");
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            console.log("before ajax");
+            $("#GoAjax").on("submit", function () {
+                debugger
+                console.log("in ajax");
+                $.ajax({
+                    type: "Post",
+                    url: "Home/Index",
+                    data: Model,
+                    success: function (data) {
+                        console.log("sucsses ajax");
+                    }
+                });
+            });
+        });
+    </script>
+
+    <p id="demo"></p>
+
+    <script id="tmr">
+
+
+        // Set the date we're counting down to
+        var countDownDate = new Date("Sep 5, 2018 15:37:25").getTime();
+
+        // Update the count down every 1 second
+        var x = setInterval(function () {
+
+            // Get todays date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now an the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result in the element with id="demo"
+            document.getElementById("demo").innerHTML = hours + "h "
+                + minutes + "m " + seconds + "s ";
+
+            // If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("demo").innerHTML = "EXPIRED";
+                $('#btnSubmit').prop('disabled', true);
+
+            }
+        }, 1000);
+    </script>
+
+    <div id="ErrorMessage"></div>
+
+
+</body>
+</html>

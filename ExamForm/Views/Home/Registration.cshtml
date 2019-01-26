@@ -1,0 +1,77 @@
+﻿@model ExamForm.Models.NewUser
+@{
+    ViewBag.Title = "Registration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Registration</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>NewUser</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.NewUserID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NewUserID, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.NewUserID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NewPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NewPassword, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.NewPassword, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.UserRole, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select>
+                    <option value="student">Student</option>
+                    <option value="admin">Admin</option>
+                    <option value="superUser">Super User</option>
+                    <option value="reporter">Reporter</option>
+                </select>
+            </div>
+        </div>*@
+    <div class="dropdown">
+    <div class="form-group">
+            @Html.LabelFor(model => model.UserRole, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.UserRole,
+                            new SelectList(Enum.GetValues(typeof(ExamForm.Models.RoleDDL))),
+                            "Select Role",
+                            new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UserRole)
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Registration" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+
+}
+
+<div>
+    @Html.ActionLink("<- Back", "AdminView")
+</div>
+

@@ -1,0 +1,65 @@
+﻿@model ExamForm.SLoginInfo
+
+@{
+    ViewBag.Title = "info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>info</h2>
+
+<div>
+    <h4>SLoginInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastLoginDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastLoginDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastAccessedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastAccessedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserResult)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserResult)
+        </dd>
+    </dl>
+</div>
+<br />
+<br />
+<ul>
+    <li>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.StudentID })
+    </li>
+    <li>
+        @Html.ActionLink("<- Back", "Index")
+    </li>
+</ul>
+

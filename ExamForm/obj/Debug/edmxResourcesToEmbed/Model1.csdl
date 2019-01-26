@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="StudentsDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cours">
+    <Key>
+      <PropertyRef Name="CourseID" />
+    </Key>
+    <Property Name="CourseID" Type="Int32" Nullable="false" />
+    <Property Name="CourseName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Enrolls" Relationship="Self.FK_Enrolls_Courses" FromRole="Courses" ToRole="Enrolls" />
+  </EntityType>
+  <EntityType Name="Enroll">
+    <Key>
+      <PropertyRef Name="StudentID" />
+      <PropertyRef Name="CourseID" />
+      <PropertyRef Name="ExamID" />
+    </Key>
+    <Property Name="StudentID" Type="Int32" Nullable="false" />
+    <Property Name="CourseID" Type="Int32" Nullable="false" />
+    <Property Name="ExamID" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Cours" Relationship="Self.FK_Enrolls_Courses" FromRole="Enrolls" ToRole="Courses" />
+    <NavigationProperty Name="Exam" Relationship="Self.FK_Enrolls_Exams" FromRole="Enrolls" ToRole="Exams" />
+    <NavigationProperty Name="SLoginInfo" Relationship="Self.FK_Enrolls_SLoginInfo" FromRole="Enrolls" ToRole="SLoginInfo" />
+  </EntityType>
+  <EntityType Name="ExamQuestoin">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Correct" Type="Boolean" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="Exam">
+    <Key>
+      <PropertyRef Name="ExamID" />
+    </Key>
+    <Property Name="ExamID" Type="Int32" Nullable="false" />
+    <Property Name="Subject" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="StartTime" Type="DateTime" Precision="0" />
+    <Property Name="EndTime" Type="DateTime" Precision="0" />
+    <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Enrolls" Relationship="Self.FK_Enrolls_Exams" FromRole="Exams" ToRole="Enrolls" />
+  </EntityType>
+  <EntityType Name="RelationUR">
+    <Key>
+      <PropertyRef Name="UserID" />
+      <PropertyRef Name="PK_R" />
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="PK_R" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_RelationUR_Users" FromRole="RelationUR" ToRole="Users" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Role" Relationship="StudentsDBModel.FK_RelationUR_Roles" FromRole="RelationUR" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="RoleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RoleDir" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="RelationURs" Relationship="StudentsDBModel.FK_RelationUR_Roles" FromRole="Role" ToRole="RelationUR" />
+  </EntityType>
+  <EntityType Name="SLoginInfo">
+    <Key>
+      <PropertyRef Name="StudentID" />
+    </Key>
+    <Property Name="StudentID" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+    <Property Name="LoginFailedCount" Type="Int32" />
+    <Property Name="LoginIPAddress" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="StudentTimeZone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="LastAccessedDate" Type="DateTime" Precision="3" />
+    <Property Name="AccountLocked" Type="Boolean" />
+    <Property Name="UserResult" Type="Int32" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Deleted" Type="Boolean" />
+    <NavigationProperty Name="Enrolls" Relationship="Self.FK_Enrolls_SLoginInfo" FromRole="SLoginInfo" ToRole="Enrolls" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Users_SLoginInfo" FromRole="SLoginInfo" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="UserRole" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="RelationURs" Relationship="Self.FK_RelationUR_Users" FromRole="Users" ToRole="RelationUR" />
+    <NavigationProperty Name="SLoginInfo" Relationship="Self.FK_Users_SLoginInfo" FromRole="Users" ToRole="SLoginInfo" />
+  </EntityType>
+  <Association Name="FK_Enrolls_Courses">
+    <End Role="Courses" Type="Self.Cours" Multiplicity="1" />
+    <End Role="Enrolls" Type="Self.Enroll" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="CourseID" />
+      </Principal>
+      <Dependent Role="Enrolls">
+        <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Enrolls_Exams">
+    <End Role="Exams" Type="Self.Exam" Multiplicity="1" />
+    <End Role="Enrolls" Type="Self.Enroll" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Exams">
+        <PropertyRef Name="ExamID" />
+      </Principal>
+      <Dependent Role="Enrolls">
+        <PropertyRef Name="ExamID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Enrolls_SLoginInfo">
+    <End Role="SLoginInfo" Type="Self.SLoginInfo" Multiplicity="1" />
+    <End Role="Enrolls" Type="Self.Enroll" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SLoginInfo">
+        <PropertyRef Name="StudentID" />
+      </Principal>
+      <Dependent Role="Enrolls">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RelationUR_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="RelationUR" Type="Self.RelationUR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="RelationUR">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_SLoginInfo">
+    <End Role="SLoginInfo" Type="Self.SLoginInfo" Multiplicity="1" />
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="SLoginInfo">
+        <PropertyRef Name="StudentID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="StudentsDBEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Courses" EntityType="Self.Cours" />
+    <EntitySet Name="Enrolls" EntityType="Self.Enroll" />
+    <EntitySet Name="ExamQuestoins" EntityType="Self.ExamQuestoin" />
+    <EntitySet Name="Exams" EntityType="Self.Exam" />
+    <EntitySet Name="RelationURs" EntityType="Self.RelationUR" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="SLoginInfoes" EntityType="Self.SLoginInfo" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_Enrolls_Courses" Association="Self.FK_Enrolls_Courses">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Enrolls" EntitySet="Enrolls" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Enrolls_Exams" Association="Self.FK_Enrolls_Exams">
+      <End Role="Exams" EntitySet="Exams" />
+      <End Role="Enrolls" EntitySet="Enrolls" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Enrolls_SLoginInfo" Association="Self.FK_Enrolls_SLoginInfo">
+      <End Role="SLoginInfo" EntitySet="SLoginInfoes" />
+      <End Role="Enrolls" EntitySet="Enrolls" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RelationUR_Users" Association="Self.FK_RelationUR_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="RelationUR" EntitySet="RelationURs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_SLoginInfo" Association="Self.FK_Users_SLoginInfo">
+      <End Role="SLoginInfo" EntitySet="SLoginInfoes" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <FunctionImport Name="GetSLoginInfo" ReturnType="Collection(String)">
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+    </FunctionImport>
+    <AssociationSet Name="FK_RelationUR_Roles" Association="StudentsDBModel.FK_RelationUR_Roles">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="RelationUR" EntitySet="RelationURs" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK_RelationUR_Roles">
+    <End Type="StudentsDBModel.Role" Role="Role" Multiplicity="1" />
+    <End Type="StudentsDBModel.RelationUR" Role="RelationUR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="RelationUR">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

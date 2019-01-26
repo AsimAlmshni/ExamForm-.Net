@@ -1,0 +1,45 @@
+﻿.UsersTable {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+.UsersTable td, .UsersTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.UsersTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.UsersTable tr:hover {
+    background-color: #ddd;
+}
+
+.UsersTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: grey;
+    color: white;
+}
+
+/* unvisited link */
+a:link {
+    color: green;
+}
+
+/* visited link */
+a:visited {
+    color: crimson;
+}
+
+/* mouse over link */
+a:hover {
+    color: red;
+}
+
+/* selected link */
+a:active {
+    color: yellow;
+}

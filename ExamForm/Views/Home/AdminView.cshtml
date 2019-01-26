@@ -1,0 +1,80 @@
+﻿@*@model PagedList.IPagedList<ExamForm.SLoginInfo>
+@using PagedList.Mvc;*@
+@{
+    ViewBag.Title = "AdminView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin View</title>
+    <link href="~/Content/UsersCSS.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>
+<br />
+<br />
+@using (Html.BeginForm("Search", "Students", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input id="myInput" type="submit" value="Search" />
+    </p>
+}
+<br />
+<div>
+    <table class="UsersTable">
+        <tr>
+            <th>StudentID</th>
+            <th>UserName</th>
+            <th>Password</th>
+            <th>UserResult</th>
+            <th>AccountLocked</th>
+        </tr>
+
+        @foreach (var item in ViewBag.StudentsData)
+        {
+            <tbody id="myTable">
+            <tr>
+                <td>@item.StudentID</td>
+                <td>@item.UserName</td>
+                <td>@item.Password</td>
+                <td>@item.UserResult</td>
+                <td>@item.AccountLocked</td>
+                <td>
+                    @Html.ActionLink("Delete", "DeleteStudent", "Students", new { id = item.StudentID }, null)
+                    |@Html.ActionLink("Edit", "Edit", "Students", new { id = item.StudentID }, null)
+                </td>
+            </tr>
+            </tbody>
+        }
+    </table>
+</div>
+<br />
+@*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
+
+@*@Html.PagedListPager(Model, page => Url.Action("Search",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
+<h2>AdminView</h2>
+<p font="5">see the whole Questions in the data Base</p>
+
+@*@Html.ActionLink(
+    linkText: "Delete",
+    actionName: "DeleteStudent",
+    controllerName: "Students"
+    )*@
+
+@Html.ActionLink("Regesiter a new User", "Registration", "Home")

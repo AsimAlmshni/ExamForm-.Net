@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Questions>
+  <problem>
+    <Q1>What GDPR stands for</Q1>
+    <choicegroup type="MultipleChoice">
+      <choice correct="false">
+        a and c
+      </choice>
+      <choice correct="true">
+        General Data Protection Regulation
+      </choice>
+      <choice correct="false">
+        Global Difinition Protected Regularuty
+      </choice>
+      <choice correct="false">
+        non of the above
+      </choice>
+    </choicegroup>
+  </problem>
+  <problem>
+    <Q1>what XML stands for</Q1>
+    <choicegroup type="MultipleChoice">
+      <choice correct="false">
+        a and b
+      </choice>
+      <choice correct="false">
+        Just Xml
+      </choice>
+      <choice correct="false">
+        non of the above
+      </choice>
+      <choice correct="true">
+        eXtensible Markup Language
+      </choice>
+    </choicegroup>
+  </problem>
+  <problem>
+    <Q1>what JSON stands for</Q1>
+    <choicegroup type="MultipleChoice">
+      <choice correct="true">
+        Javascript Object Notation
+      </choice>
+      <choice correct="false">
+        Just JSON
+      </choice>
+      <choice correct="false">
+        Hyper Text Markup Language
+      </choice>
+      <choice correct="false">
+        non of the above
+      </choice>
+    </choicegroup>
+  </problem>
+</Questions>
+  
+  
+    

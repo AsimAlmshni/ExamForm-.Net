@@ -1,0 +1,84 @@
+﻿@model ExamForm.Models.Users
+
+@{
+    ViewBag.Title = "QuizView";
+    Layout = "~/Views/Shared/_LogIn.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="~/Content/Login.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+
+
+    @using (Html.BeginForm())
+    {
+        <div class="well well-sm" style="margin:25px">
+            <div class="container">
+                <div class="form-group">
+                    <h2> Login </h2>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>User Name: </label><br />
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { placeholder = "UserName", @class = "form-control" } })
+                            </div>
+                        </div>
+                                @Html.ValidationMessageFor(model => model.UserName)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <br /><label>Password:</label><br />
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-lock"></i>
+                                </span>
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { placeholder = "Password", @class = "form-control" } })
+                            </div>
+                        </div>
+                            @Html.ValidationMessageFor(model => model.Password)
+                    </div>
+                </div>
+                    <div class="form-group">
+                        @if (@ViewBag.Failedcount != null)
+                        {
+
+                            <p class="text-danger"> Failed Attempt count is: @ViewBag.Failedcount</p>
+                        }
+
+                        @if (@ViewBag.NotValidUser != null)
+                        {
+
+                            <p class="text-info"> @ViewBag.NotValidUser</p>
+                        }
+                    </div>
+                    <div class="checkbox">
+                        <br /><label><input type="checkbox" name="remember" value="remember"> Remember me</label>
+                    </div>
+                    <div>
+                        <input type="submit" value="Login" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+    }
+</body>
+</html>
+
+

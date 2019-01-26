@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StudentsDBModelStoreContainer" CdmEntityContainer="StudentsDBEntities1">
+    <EntitySetMapping Name="Courses">
+      <EntityTypeMapping TypeName="StudentsDBModel.Cours">
+        <MappingFragment StoreEntitySet="Courses">
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Enrolls">
+      <EntityTypeMapping TypeName="StudentsDBModel.Enroll">
+        <MappingFragment StoreEntitySet="Enrolls">
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExamQuestoins">
+      <EntityTypeMapping TypeName="StudentsDBModel.ExamQuestoin">
+        <MappingFragment StoreEntitySet="ExamQuestoins">
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="Correct" ColumnName="Correct" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Exams">
+      <EntityTypeMapping TypeName="StudentsDBModel.Exam">
+        <MappingFragment StoreEntitySet="Exams">
+          <ScalarProperty Name="ExamID" ColumnName="ExamID" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RelationURs">
+      <EntityTypeMapping TypeName="StudentsDBModel.RelationUR">
+        <MappingFragment StoreEntitySet="RelationUR">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="PK_R" ColumnName="PK_R" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="StudentsDBModel.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="RoleDir" ColumnName="RoleDir" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SLoginInfoes">
+      <EntityTypeMapping TypeName="StudentsDBModel.SLoginInfo">
+        <MappingFragment StoreEntitySet="SLoginInfo">
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+          <ScalarProperty Name="LoginFailedCount" ColumnName="LoginFailedCount" />
+          <ScalarProperty Name="LoginIPAddress" ColumnName="LoginIPAddress" />
+          <ScalarProperty Name="StudentTimeZone" ColumnName="StudentTimeZone" />
+          <ScalarProperty Name="LastAccessedDate" ColumnName="LastAccessedDate" />
+          <ScalarProperty Name="AccountLocked" ColumnName="AccountLocked" />
+          <ScalarProperty Name="UserResult" ColumnName="UserResult" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="StudentsDBModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetSLoginInfo" FunctionName="StudentsDBModel.Store.GetSLoginInfo" />
+  </EntityContainerMapping>
+</Mapping>

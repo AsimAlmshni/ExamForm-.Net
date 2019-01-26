@@ -1,0 +1,21 @@
+﻿@model ExamForm.Models.ExamTemp
+
+
+
+
+<h4 style="color:red">
+    Time Left: @ViewBag.tim <br />
+</h4>
+
+    <p style="font-size:x-large">Your answers :</p><br />
+    <h4 style="color:purple">
+        Answer: @ViewBag.Answer1 <br />
+        Answer: @ViewBag.Answer2 <br />
+        Answer: @ViewBag.Answer3 <br />
+    </h4>
+
+    <h5 style="color:forestgreen">
+        @ViewBag.CorrectAnswer
+    </h5>
+
+@*@Html.Action("Submit", "Home");*@
